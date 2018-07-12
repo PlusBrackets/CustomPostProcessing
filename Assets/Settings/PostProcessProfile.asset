@@ -15,9 +15,8 @@ MonoBehaviour:
   - {fileID: 114375464177707528}
   - {fileID: 114252324386167986}
   - {fileID: 114519825960210478}
-  - {fileID: 114153706094799612}
-  - {fileID: 114947304950793684}
---- !u!114 &114153706094799612
+  - {fileID: 114030121153137084}
+--- !u!114 &114030121153137084
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
@@ -25,16 +24,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb7bdc081f1d42f44a217ae37c4c4e47, type: 3}
-  m_Name: Grayscale
+  m_Script: {fileID: 11500000, guid: bec430e1bccdca4438a967407f2a8176, type: 3}
+  m_Name: GaussianBlur
   m_EditorClassIdentifier: 
   active: 1
   enabled:
     overrideState: 1
     value: 1
-  blend:
+  weight:
     overrideState: 1
     value: 0
+  iterations:
+    overrideState: 1
+    value: 5
+  spread:
+    overrideState: 1
+    value: 1
+  sampleScale:
+    overrideState: 1
+    value: 0.5
 --- !u!114 &114252324386167986
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1434,30 +1442,3 @@ MonoBehaviour:
   opacity:
     overrideState: 0
     value: 1
---- !u!114 &114947304950793684
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bec430e1bccdca4438a967407f2a8176, type: 3}
-  m_Name: GaussianBlur
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  iterations:
-    overrideState: 1
-    value: 4
-  spread:
-    overrideState: 1
-    value: 0.5
-  weight:
-    overrideState: 1
-    value: 1
-  sampleScale:
-    overrideState: 1
-    value: 0.8
