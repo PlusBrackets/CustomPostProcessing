@@ -1,0 +1,6 @@
+/.vs
+/Library
+/obj
+/Assembly-CSharp.csproj
+/Assembly-CSharp-Editor.csproj
+/CustomPostProcessing.sln
