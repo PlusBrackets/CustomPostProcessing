@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace CustomPostProcessing
+namespace PB_PostProcessing
 {
     [Serializable]
-    [PostProcess(typeof(GaussianBlurRenderer), PostProcessEvent.AfterStack, "Custom/GaussianBlur")]
+    [PostProcess(typeof(GaussianBlurRenderer), PostProcessEvent.AfterStack, "PBCustom/GaussianBlur")]
     public class GaussianBlur : PostProcessEffectSettings
     {
         [Range(0f, 1f)]
@@ -24,7 +24,6 @@ namespace CustomPostProcessing
         {
             return enabled.value && iterations.value > 0 && weight.value > 0f && spread.value > 0;
         }
-
     }
 
     public sealed class GaussianBlurRenderer : PostProcessEffectRenderer<GaussianBlur>
@@ -50,10 +49,10 @@ namespace CustomPostProcessing
         {
             CommandBuffer cmd = context.command;
 
-            cmd.BeginSample("GaussianBlurPass");
+            cmd.BeginSample("GaussianBlur");
 
-            PropertySheet sheet = context.propertySheets.Get(Shader.Find("Hidden/Custom/GaussianBlurEffect"));
-            sheet.properties.SetFloat("_BlurWeight", settings.weight);
+            PropertySheet sheet = context.propertySheets.Get(Shader.Find(Constants.Shaders.GaussianBlur));
+            sheet.properties.SetFloat(Constants.ShaderParams.BlurWeight, settings.weight);
 
             float sampleScale = Mathf.Lerp(1, settings.sampleScale, settings.weight);
             float spread = Mathf.Lerp(0.02f, settings.spread, settings.weight);
@@ -65,27 +64,36 @@ namespace CustomPostProcessing
 
             for (int i = 0; i < Mathf.Min(settings.iterations,m_PassRT.Length); i++)
             {
-                sheet.properties.SetFloat("_BlurSize", 1.0f + i * spread);
+                sheet.properties.SetFloat(Constants.ShaderParams.BlurSize, 1.0f + i * spread);
 
-                PassRT passRT = m_PassRT[i];               
-
+                PassRT passRT = m_PassRT[i];
+                //释放前一张竖向取样rt
+                if (i > 0)
+                {
+                    cmd.ReleaseTemporaryRT(m_PassRT[i - 1].v);
+                }
                 context.GetScreenSpaceTemporaryRT(cmd, passRT.v, 0, context.sourceFormat, RenderTextureReadWrite.Default, FilterMode.Bilinear, rtW, rtH);
                 //vertical pass
                 cmd.BlitFullscreenTriangle(lastRT, passRT.v, sheet, 0);
                 lastRT = passRT.v;
-
+                //释放前一张横向取样rt
+                if (i > 0)
+                {
+                    cmd.ReleaseTemporaryRT(m_PassRT[i - 1].h);
+                }
                 context.GetScreenSpaceTemporaryRT(cmd, passRT.h, 0, context.sourceFormat, RenderTextureReadWrite.Default, FilterMode.Bilinear, rtW, rtH);
                 //horizonal pass
                 cmd.BlitFullscreenTriangle(lastRT, passRT.h, sheet, 1);
                 lastRT = passRT.h;
             }
             cmd.BlitFullscreenTriangle( lastRT, context.destination);
-            for(int i = 0; i < Mathf.Min(settings.iterations, m_PassRT.Length); i++)
+            int lastPassIndex = Mathf.Min(settings.iterations, m_PassRT.Length)-1;
+            if (lastPassIndex > 0)
             {
-                cmd.ReleaseTemporaryRT(m_PassRT[i].v);
-                cmd.ReleaseTemporaryRT(m_PassRT[i].h);
+                cmd.ReleaseTemporaryRT(m_PassRT[lastPassIndex].v);
+                cmd.ReleaseTemporaryRT(m_PassRT[lastPassIndex].h);
             }
-            cmd.EndSample("GaussianBlurPass");
+            cmd.EndSample("GaussianBlur");
         }
     }
 }
