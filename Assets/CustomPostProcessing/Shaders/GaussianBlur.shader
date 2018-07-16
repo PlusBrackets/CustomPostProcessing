@@ -3,27 +3,27 @@
 	HLSLINCLUDE
 
 		#include "PostProcessing/Shaders/StdLib.hlsl"
-		#include "BlurLib.hlsl"
+		#include "PBLib.hlsl"
 
 		TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
 		float4 _MainTex_TexelSize;
 		float _BlurSize;
-		float _BlurWeight;
+		float _Weight;
 
 
 		float4 FragVertical(VaryingsDefault i) :SV_Target
 		{
 			half2 dir = half2(0.0, _MainTex_TexelSize.y);
-			float4 col = GAUSSIAN_SAMPLE5(TEXTURE2D_PARAM(_MainTex, sampler_MainTex), i.texcoord, dir * _BlurSize);
-			col = _BlurWeight * col + (1 - _BlurWeight) * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
+			float4 col = SampleGaussianBlur5(TEXTURE2D_PARAM(_MainTex, sampler_MainTex), i.texcoord, dir * _BlurSize);
+			col = _Weight * col + (1 - _Weight) * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
 			return col;
 		}
 
 		float4 FragHorizontal(VaryingsDefault i) :SV_Target
 		{
 			half2 dir = half2(_MainTex_TexelSize.x,0.0);
-			float4 col = GAUSSIAN_SAMPLE5(TEXTURE2D_PARAM(_MainTex, sampler_MainTex), i.texcoord, dir * _BlurSize);
-			col = _BlurWeight * col + (1 - _BlurWeight) * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
+			float4 col = SampleGaussianBlur5(TEXTURE2D_PARAM(_MainTex, sampler_MainTex), i.texcoord, dir * _BlurSize);
+			col = _Weight * col + (1 - _Weight) * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
 			return col;
 		}
 

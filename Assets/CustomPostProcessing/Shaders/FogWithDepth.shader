@@ -3,15 +3,38 @@
 	HLSLINCLUDE
 
 		#include "PostProcessing/Shaders/StdLib.hlsl"
+		#include "PBLib.hlsl"
 
 		TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
 		TEXTURE2D_SAMPLER2D(_CameraDepthTexture,sampler_CameraDepthTexture);
+		TEXTURE2D_SAMPLER2D(_NoiseTex, sampler_NoiseTex);
+
+		float4x4 _FrustumCornersRay;
+		float4 _MainTex_TexelSize;
+
+		half _FogDensity;
+		float4 _FogColor;
+		float _FogStart;
+		float _FogEnd;
+		half _Weight;
+
+		float2 _FogSpeed;
+		half _NoiseAmount;
 
 		float4 FragFog(VaryingsDefault i) :SV_Target
 		{
-			 float4 col = 1;
-			 float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture,sampler_CameraDepthTexture,i.texcoord);
-			 return col*depth;
+			float3 worldPos = GetWorldPos(TEXTURE2D_PARAM(_CameraDepthTexture, sampler_CameraDepthTexture), i.texcoord, _FrustumCornersRay);
+
+			float2 speed = _Time.x * _FogSpeed;
+			float noise = (SAMPLE_TEXTURE2D(_NoiseTex, sampler_NoiseTex, (i.texcoord + speed)% _MainTex_TexelSize.ba).r - 0.5)*_NoiseAmount;
+
+			float fogDensity = (_FogEnd - worldPos.y) / (_FogEnd - _FogStart);
+			fogDensity = saturate(fogDensity*_FogDensity*(1+noise))*_Weight;
+			
+			float4 finalColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
+			finalColor.rgb = lerp(finalColor.rgb, _FogColor.rgb, fogDensity);
+
+			return finalColor;
 		}
 
 	ENDHLSL

@@ -52,7 +52,7 @@ namespace PB_PostProcessing
             cmd.BeginSample("GaussianBlur");
 
             PropertySheet sheet = context.propertySheets.Get(Shader.Find(Constants.Shaders.GaussianBlur));
-            sheet.properties.SetFloat(Constants.ShaderParams.BlurWeight, settings.weight);
+            sheet.properties.SetFloat(Constants.ShaderParams.Weight, settings.weight);
 
             float sampleScale = Mathf.Lerp(1, settings.sampleScale, settings.weight);
             float spread = Mathf.Lerp(0.02f, settings.spread, settings.weight);
