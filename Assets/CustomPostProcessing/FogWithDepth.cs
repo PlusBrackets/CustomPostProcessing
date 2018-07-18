@@ -19,11 +19,6 @@ namespace PB_PostProcessing
         public FloatParameter fogEnd = new FloatParameter { value = 1f };
         public ColorParameter fogColor = new ColorParameter { value = Color.white };
 
-        public TextureParameter noiseTex = new TextureParameter { value = null};
-        public Vector2Parameter fogSpeed = new Vector2Parameter { value = Vector2.zero};
-        [Range(0,5f)]
-        public FloatParameter noiseAmount = new FloatParameter { value = 0 };
-
         public override bool IsEnabledAndSupported(PostProcessRenderContext context)
         {
             return enabled.value && RuntimeUtilities.supportsDepthNormals;
@@ -87,12 +82,7 @@ namespace PB_PostProcessing
             sheet.properties.SetColor(Constants.ShaderParams.FogColor, settings.fogColor);
 
             sheet.properties.SetFloat(Constants.ShaderParams.Weight, settings.fogWeight);
-
-            if(settings.noiseTex.value!=null)
-                sheet.properties.SetTexture("_NoiseTex", settings.noiseTex);
-            sheet.properties.SetVector("_FogSpeed", settings.fogSpeed);
-            sheet.properties.SetFloat("_NoiseAmount", settings.noiseAmount);
-
+            
             cmd.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
 
             cmd.EndSample("FogWithDepth");
