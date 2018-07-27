@@ -15,7 +15,7 @@ MonoBehaviour:
   - {fileID: 114711786161739096}
   - {fileID: 114116978514110108}
   - {fileID: 114657487395342108}
-  - {fileID: 114139062871121766}
+  - {fileID: 114973868031995852}
 --- !u!114 &114116978514110108
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -62,33 +62,6 @@ MonoBehaviour:
   dirtIntensity:
     overrideState: 0
     value: 0
---- !u!114 &114139062871121766
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bec430e1bccdca4438a967407f2a8176, type: 3}
-  m_Name: GaussianBlur
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  weight:
-    overrideState: 1
-    value: 1
-  iterations:
-    overrideState: 1
-    value: 5
-  spread:
-    overrideState: 1
-    value: 1
-  sampleScale:
-    overrideState: 1
-    value: 0.5
 --- !u!114 &114657487395342108
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1442,3 +1415,30 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
+--- !u!114 &114973868031995852
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec430e1bccdca4438a967407f2a8176, type: 3}
+  m_Name: GaussianBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 1
+  iterations:
+    overrideState: 1
+    value: 5
+  spread:
+    overrideState: 1
+    value: 1.5
+  sampleScale:
+    overrideState: 1
+    value: 0.5

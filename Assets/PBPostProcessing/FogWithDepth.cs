@@ -12,7 +12,7 @@ namespace PB_PostProcessing
     public class FogWithDepth : PostProcessEffectSettings
     {
         [Range(0f,1f)]
-        public FloatParameter fogWeight = new FloatParameter { value = 0 };
+        public FloatParameter intensity = new FloatParameter { value = 0 };
         [Range(0f,3f)]
         public FloatParameter fogDensity = new FloatParameter { value = 0f };
         public FloatParameter fogStart = new FloatParameter { value = 0f };
@@ -81,7 +81,7 @@ namespace PB_PostProcessing
             sheet.properties.SetFloat(Constants.ShaderParams.FogEnd, settings.fogEnd);
             sheet.properties.SetColor(Constants.ShaderParams.FogColor, settings.fogColor);
 
-            sheet.properties.SetFloat(Constants.ShaderParams.Weight, settings.fogWeight);
+            sheet.properties.SetFloat(Constants.ShaderParams.Intensity, settings.intensity);
             
             cmd.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
 

@@ -9,13 +9,124 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: PostProcessProfileDefalut
+  m_Name: PostProcessProfileGlitch
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: 114375464177707528}
-  - {fileID: 114252324386167986}
-  - {fileID: 114519825960210478}
---- !u!114 &114252324386167986
+  - {fileID: 114957962664903240}
+  - {fileID: 114591134820440572}
+  - {fileID: 114293764533606824}
+  - {fileID: 114451464056485058}
+  - {fileID: 114285872852237596}
+--- !u!114 &114285872852237596
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c568778cbcd119c4ca555948a2e906f6, type: 3}
+  m_Name: AnalogGlitch
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 0.5
+  scanLineJitter:
+    overrideState: 1
+    value: 1
+  verticalJump:
+    overrideState: 1
+    value: 0
+  horizontalShake:
+    overrideState: 1
+    value: 0
+  colorDrift:
+    overrideState: 1
+    value: 0.5
+--- !u!114 &114293764533606824
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 0
+  color:
+    overrideState: 1
+    value: {r: 0, g: 0, b: 0, a: 1}
+  center:
+    overrideState: 1
+    value: {x: 0.5, y: 0.5}
+  intensity:
+    overrideState: 1
+    value: 0.53
+  smoothness:
+    overrideState: 1
+    value: 0.4
+  roundness:
+    overrideState: 1
+    value: 0
+  rounded:
+    overrideState: 1
+    value: 0
+  mask:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  opacity:
+    overrideState: 0
+    value: 1
+--- !u!114 &114451464056485058
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8c704d22a2f41498d6272b00d02b0c, type: 3}
+  m_Name: DigitalGlitch
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  intenstiy:
+    overrideState: 1
+    value: 0.3
+  noise:
+    overrideState: 1
+    value: 0.65
+  noiseRate:
+    overrideState: 1
+    value: 0.7
+  trashFrameCount1:
+    overrideState: 1
+    value: 13
+  trashFrameCount2:
+    overrideState: 1
+    value: 73
+  mulColor:
+    overrideState: 1
+    value: {r: 0, g: 0, b: 0, a: 1}
+  addColor:
+    overrideState: 0
+    value: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &114591134820440572
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
@@ -61,7 +172,7 @@ MonoBehaviour:
   dirtIntensity:
     overrideState: 0
     value: 0
---- !u!114 &114375464177707528
+--- !u!114 &114957962664903240
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
@@ -1371,46 +1482,3 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
---- !u!114 &114519825960210478
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
-  m_Name: Vignette
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  mode:
-    overrideState: 1
-    value: 0
-  color:
-    overrideState: 1
-    value: {r: 0, g: 0, b: 0, a: 1}
-  center:
-    overrideState: 1
-    value: {x: 0.5, y: 0.5}
-  intensity:
-    overrideState: 1
-    value: 0.53
-  smoothness:
-    overrideState: 1
-    value: 0.4
-  roundness:
-    overrideState: 1
-    value: 0
-  rounded:
-    overrideState: 1
-    value: 0
-  mask:
-    overrideState: 0
-    value: {fileID: 0}
-    defaultState: 1
-  opacity:
-    overrideState: 0
-    value: 1

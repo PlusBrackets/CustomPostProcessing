@@ -31,7 +31,7 @@ MonoBehaviour:
   enabled:
     overrideState: 1
     value: 1
-  fogWeight:
+  intensity:
     overrideState: 1
     value: 1
   fogDensity:

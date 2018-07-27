@@ -12,7 +12,7 @@ namespace PB_PostProcessing
     public class GaussianBlur : PostProcessEffectSettings
     {
         [Range(0f, 1f)]
-        public FloatParameter weight = new FloatParameter { value = 1f };
+        public FloatParameter intensity = new FloatParameter { value = 0f };
         [Range(1, 10)]
         public IntParameter iterations = new IntParameter { value = 3 };
         [Range(0.02f, 5f)]
@@ -22,7 +22,7 @@ namespace PB_PostProcessing
 
         public override bool IsEnabledAndSupported(PostProcessRenderContext context)
         {
-            return enabled.value && iterations.value > 0 && weight.value > 0f && spread.value > 0;
+            return enabled.value && iterations.value > 0 && intensity.value > 0f && spread.value > 0;
         }
     }
 
@@ -52,10 +52,10 @@ namespace PB_PostProcessing
             cmd.BeginSample("GaussianBlur");
 
             PropertySheet sheet = context.propertySheets.Get(Shader.Find(Constants.Shaders.GaussianBlur));
-            sheet.properties.SetFloat(Constants.ShaderParams.Weight, settings.weight);
+            sheet.properties.SetFloat(Constants.ShaderParams.Intensity, settings.intensity);
 
-            float sampleScale = Mathf.Lerp(1, settings.sampleScale, settings.weight);
-            float spread = Mathf.Lerp(0.02f, settings.spread, settings.weight);
+            float sampleScale = Mathf.Lerp(1, settings.sampleScale, settings.intensity);
+            float spread = Mathf.Lerp(0.02f, settings.spread, settings.intensity);
 
             int rtW = Mathf.FloorToInt(context.screenWidth * sampleScale);
             int rtH = Mathf.FloorToInt(context.screenHeight * sampleScale);
